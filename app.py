@@ -31,6 +31,41 @@ def generate_documentation(raw_notes):
             output.append(f"Operating System: {operating_system}")
             output.append("")
 
+        elif line.lower().startswith("hostname:"):
+            hostname = line.split(":", 1)[1].strip()
+            output.append(f"Hostname: {hostname}")
+            output.append("")
+
+        elif line.lower().startswith("gateway:"):
+            gateway = line.split(":", 1)[1].strip()
+            output.append(f"Default Gateway: {gateway}")
+            output.append("")
+
+        elif line.lower().startswith("dns:"):
+            dns = line.split(":", 1)[1].strip()
+            output.append(f"DNS Server: {dns}")
+            output.append("")
+
+        elif line.lower().startswith("subnet:"):
+            subnet = line.split(":", 1)[1].strip()
+            output.append(f"Subnet: {subnet}")
+            output.append("")
+
+        elif line.lower().startswith("model:"):
+            model = line.split(":", 1)[1].strip()
+            output.append(f"Model: {model}")
+            output.append("")
+
+        elif line.lower().startswith("vendor:"):
+            vendor = line.split(":", 1)[1].strip()
+            output.append(f"Vendor: {vendor}")
+            output.append("")
+
+        elif line.lower().startswith("location:"):
+            location = line.split(":", 1)[1].strip()
+            output.append(f"Location: {location}")
+            output.append("")
+
         else:
             output.append(line)
             output.append("")
