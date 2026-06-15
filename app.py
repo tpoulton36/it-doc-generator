@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, Response
 from parser.documentation_parser import generate_documentation
+from database.db import init_db
 
 app = Flask(__name__)
-
+init_db()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
