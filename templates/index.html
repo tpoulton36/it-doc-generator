@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Documentation Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </head>
 <body>
 
@@ -19,12 +20,20 @@
         <textarea id="raw_notes" name="raw_notes" rows="12">{{ raw_notes }}</textarea>
 
         <button type="submit">Generate Documentation</button>
+
+        <button
+            type="submit"
+            formaction="/download"
+            formmethod="POST">
+            Download Markdown
+        </button>
     </form>
 
     {% if generated_docs %}
         <section class="output-section">
             <h2>Generated Documentation</h2>
-            <pre>{{ generated_docs }}</pre>
+            <button type="button" onclick="copyDocumentation()">Copy Documentation</button>
+            <pre id="generated-docs">{{ generated_docs }}</pre>
         </section>
     {% endif %}
 
