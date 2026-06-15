@@ -16,6 +16,12 @@
     </p>
 
     <form method="POST">
+        <label for="project_name">Project Name</label>
+        <input
+            type="text"
+            id="project_name"
+            name="project_name"
+            placeholder="Example: Main Office Network">
         <label for="doc_type">Documentation Type</label>
         <select id="doc_type" name="doc_type">
             <option value="infrastructure" {% if doc_type == "infrastructure" %}selected{% endif %}>Infrastructure</option>
@@ -27,7 +33,16 @@
         <label for="raw_notes">Raw IT Notes</label>
         <textarea id="raw_notes" name="raw_notes" rows="12">{{ raw_notes }}</textarea>
 
-        <button type="submit">Generate Documentation</button>
+        <button type="submit">
+            Generate Documentation
+        </button>
+
+        <button
+            type="submit"
+            name="action"
+            value="save">
+            Save Project
+        </button>
 
         <button
             type="submit"
@@ -37,6 +52,10 @@
         </button>
     </form>
 
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+
     {% if generated_docs %}
         <section class="output-section">
             <h2>Generated Documentation</h2>
@@ -44,6 +63,19 @@
             <pre id="generated-docs">{{ generated_docs }}</pre>
         </section>
     {% endif %}
+
+    <hr>
+
+    <h2>Saved Projects</h2>
+
+    <ul>
+    {% for project in projects %}
+        <li>
+            {{ project["project_name"] }}
+            ({{ project["doc_type"] }})
+        </li>
+    {% endfor %}
+    </ul>
 
 </body>
 </html>

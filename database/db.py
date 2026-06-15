@@ -24,5 +24,38 @@ def init_db():
         )
     """)
 
+def save_project(project_name, doc_type, raw_notes, generated_docs):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        INSERT INTO projects (
+            project_name,
+            doc_type,
+            raw_notes,
+            generated_docs
+        )
+        VALUES (?, ?, ?, ?)
+    """, (project_name, doc_type, raw_notes, generated_docs))
+
+    connection.commit()
+    connection.close()
+
+
+def get_projects():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT id, project_name, doc_type, created_at
+        FROM projects
+        ORDER BY created_at DESC
+    """)
+
+    projects = cursor.fetchall()
+    connection.close()
+
+    return projects
+
     connection.commit()
     connection.close()
