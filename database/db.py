@@ -59,3 +59,18 @@ def get_projects():
 
     connection.commit()
     connection.close()
+
+def get_project(project_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM projects
+        WHERE id = ?
+    """, (project_id,))
+
+    project = cursor.fetchone()
+    connection.close()
+
+    return project

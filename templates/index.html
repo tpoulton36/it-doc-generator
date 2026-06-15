@@ -21,6 +21,7 @@
             type="text"
             id="project_name"
             name="project_name"
+            value="{{ project_name if project_name else '' }}"
             placeholder="Example: Main Office Network">
         <label for="doc_type">Documentation Type</label>
         <select id="doc_type" name="doc_type">
@@ -73,6 +74,8 @@
         <li>
             {{ project["project_name"] }}
             ({{ project["doc_type"] }})
+
+            <a href="/load/{{ project['id'] }}">Load</a>
         </li>
     {% endfor %}
     </ul>

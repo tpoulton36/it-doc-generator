@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response
 from parser.documentation_parser import generate_documentation
-from database.db import init_db, save_project, get_projects
+from database.db import init_db, save_project, get_projects, get_project
 
 app = Flask(__name__)
 init_db()
@@ -49,6 +49,23 @@ def download():
         headers={
             "Content-Disposition": "attachment; filename=documentation.md"
         }
+    )
+
+@app.route("/load/<int:project_id>")
+def load_project(project_id):
+    project = get_project(project_id)
+
+    if not project:
+        return "Project not found", 404
+
+    return render_template(
+        "index.html",
+        project_name=project["project_name"],
+        raw_notes=project["raw_notes"],
+        generated_docs=project["generated_docs"],
+        doc_type=project["doc_type"],
+        projects=get_projects(),
+        message=f"Loaded project: {project['project_name']}"
     )
 
 
