@@ -1,6 +1,13 @@
-def generate_documentation(raw_notes):
+def generate_documentation(raw_notes, doc_type="infrastructure"):
     if not raw_notes.strip():
         return ""
+
+    titles = {
+        "infrastructure": "# Infrastructure Documentation",
+        "server": "# Server Documentation",
+        "network": "# Network Device Documentation",
+        "workstation": "# Workstation Documentation",
+    }
 
     field_map = {
         "server": "## Server",
@@ -13,10 +20,18 @@ def generate_documentation(raw_notes):
         "vendor": "Vendor",
         "model": "Model",
         "location": "Location",
+        "firewall": "## Firewall",
+        "switch": "## Switch",
+        "router": "## Router",
+        "printer": "## Printer",
+        "workstation": "## Workstation",
+        "user": "Assigned User",
+        "department": "Department",
+        "serial": "Serial Number",
     }
 
     lines = raw_notes.splitlines()
-    output = ["# Infrastructure Documentation", ""]
+    output = [titles.get(doc_type, "# Infrastructure Documentation"), ""]
 
     for line in lines:
         line = line.strip()
@@ -31,12 +46,7 @@ def generate_documentation(raw_notes):
 
             if key in field_map:
                 label = field_map[key]
-
-                if key == "server":
-                    output.append(f"{label}: {value}")
-                else:
-                    output.append(f"{label}: {value}")
-
+                output.append(f"{label}: {value}")
                 output.append("")
             else:
                 output.append(line)
