@@ -74,3 +74,15 @@ def get_project(project_id):
     connection.close()
 
     return project
+
+def delete_project(project_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        DELETE FROM projects
+        WHERE id = ?
+    """, (project_id,))
+
+    connection.commit()
+    connection.close()

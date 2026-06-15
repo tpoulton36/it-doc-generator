@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response
 from parser.documentation_parser import generate_documentation
-from database.db import init_db, save_project, get_projects, get_project
+from database.db import init_db, save_project, get_projects, get_project, delete_project
 
 app = Flask(__name__)
 init_db()
@@ -68,6 +68,18 @@ def load_project(project_id):
         message=f"Loaded project: {project['project_name']}"
     )
 
+@app.route("/delete/<int:project_id>", methods=["POST"])
+def delete_saved_project(project_id):
+    delete_project(project_id)
+
+    return render_template(
+        "index.html",
+        raw_notes="",
+        generated_docs="",
+        doc_type="infrastructure",
+        projects=get_projects(),
+        message="Project deleted successfully."
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

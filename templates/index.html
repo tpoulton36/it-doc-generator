@@ -71,12 +71,21 @@
 
     <ul>
     {% for project in projects %}
-        <li>
-            {{ project["project_name"] }}
-            ({{ project["doc_type"] }})
+    <li>
+        {{ project["project_name"] }}
+        ({{ project["doc_type"] }})
 
-            <a href="/load/{{ project['id'] }}">Load</a>
-        </li>
+        <a href="/load/{{ project['id'] }}">Load</a>
+
+        <form
+            method="POST"
+            action="/delete/{{ project['id'] }}"
+            style="display: inline;">
+            <button type="submit">
+                Delete
+            </button>
+        </form>
+    </li>
     {% endfor %}
     </ul>
 
